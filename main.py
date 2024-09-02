@@ -90,31 +90,28 @@ def draw_move(board):
 board = [[str(row * 3 + col + 1) for col in range(3)] for row in range(3)]
 
 is_draw_game = True
-computer_won = False
-user_won = False
+player_wins = {'X': False, 'O': False}
 
 free_fields_count = len(make_list_of_free_fields(board))
 
-while free_fields_count > 0:
-    signs = ('X', 'O')
-        
+while free_fields_count > 0 and (not player_wins['O']) and (not player_wins['X']):        
     draw_move(board)
-    computer_won = victory_for(board, signs[0])
+    player_wins['X'] = victory_for(board, 'X')
     free_fields_count = len(make_list_of_free_fields(board))
     
-    if(free_fields_count > 0):
+    if(free_fields_count > 0 and (not player_wins['X'])):
         enter_move(board)
-        user_won = victory_for(board, signs[1])
+        player_wins['O'] = victory_for(board, '0')
         free_fields_count = len(make_list_of_free_fields(board))
 
-    if computer_won or user_won:
+    if player_wins['X'] or player_wins['O']:
         is_draw_game = False
         break
         
-if not is_draw_game:
-    if computer_won:
+if is_draw_game:
+    print('is a draw')    
+else:
+    if player_wins['X']:
         print('You Lose')
     else:
         print('You won!')
-else:
-    print('is a draw')    
