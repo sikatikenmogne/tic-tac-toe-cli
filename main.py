@@ -46,13 +46,28 @@ def make_list_of_free_fields(board):
     return free_list
 
 def victory_for(board, sign):
-    has_win_center = board[1][1] == sign
-    if (not has_win_center):
-        has_win = board[0][0] == board[0][1] == board[0][2] == sign or board[2][0] == board[2][1] == board[2][2] == sign or board[0][0] == board[0][1] == board[0][2]  == sign or board[0][2] == board[1][2] == board[2][2]  == sign    
-    else:
-        has_win = board[0][0] == board[1][1] == board[2][2] == sign or board[0][1] == board[1][1] == board[2][1]  == sign or board[0][2] == board[1][1] == board[2][0]  == sign or board[1][0] == board[1][1] == board[1][2]  == sign
-            
-    return has_win
+    # Check rows for victory
+    def check_rows(board, sign):
+        for row in board:
+            if all(cell == sign for cell in row):
+                return True
+        return False
+
+    # Check columns for victory
+    def check_columns(board, sign):
+        for col in range(3):
+            if all(board[row][col] == sign for row in range(3)):
+                return True
+        return False
+
+    # Check diagonals for victory
+    def check_diagonals(board, sign):
+        if all(board[i][i] == sign for i in range(3)) or all(board[i][2 - i] == sign for i in range(3)):
+            return True
+        return False
+
+    # Check all conditions
+    return check_rows(board, sign) or check_columns(board, sign) or check_diagonals(board, sign)
         
 def draw_move(board):
     if board[1][1] != 'X':
