@@ -17,7 +17,7 @@ def enter_move(board):
     while not is_valid_move:
         try:
             move = int(input('Enter your move: '))
-        except:
+        except ValueError:
             print('Invalid input')
             is_valid_move = False
             continue
@@ -101,7 +101,7 @@ while free_fields_count > 0 and (not player_wins['O']) and (not player_wins['X']
     
     if(free_fields_count > 0 and (not player_wins['X'])):
         enter_move(board)
-        player_wins['O'] = victory_for(board, '0')
+        player_wins['O'] = victory_for(board, 'O')
         free_fields_count = len(make_list_of_free_fields(board))
 
     if player_wins['X'] or player_wins['O']:
