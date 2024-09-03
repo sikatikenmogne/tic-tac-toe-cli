@@ -1,4 +1,17 @@
 from random import randrange
+"""
+This script implements a command-line version of the Tic-Tac-Toe game.
+The game is played between the player (O) and the computer (X).
+The player and the computer take turns making moves on a 3x3 board.
+The first player to get three of their marks in a row, column, or diagonal wins the game.
+If all the cells on the board are filled and no player has won, the game is a draw.
+Functions:
+- display_board(board): Displays the current state of the board.
+- enter_move(board): Allows the player to enter their move and updates the board accordingly.
+- make_list_of_free_fields(board): Returns a list of coordinates of the free cells on the board.
+- victory_for(board, sign): Checks if the specified player has won the game.
+- draw_move(board): Makes a move for the computer and updates the board accordingly.
+"""
 
 def display_board(board):
     print('+-------+-------+-------+')
@@ -94,16 +107,25 @@ player_wins = {'X': False, 'O': False}
 
 free_fields_count = len(make_list_of_free_fields(board))
 
+# Main game loop: continue while there are free fields and no player has won
 while free_fields_count > 0 and (not player_wins['O']) and (not player_wins['X']):        
+    # Computer makes a move
     draw_move(board)
+    # Check if the computer has won
     player_wins['X'] = victory_for(board, 'X')
+
     free_fields_count = len(make_list_of_free_fields(board))
     
-    if(free_fields_count > 0 and (not player_wins['X'])):
+    # If there are still free fields and the computer hasn't won
+    if free_fields_count > 0 and (not player_wins['X']):
+        # Player makes a move
         enter_move(board)
+        # Check if the player has won
         player_wins['O'] = victory_for(board, 'O')
+
         free_fields_count = len(make_list_of_free_fields(board))
 
+    # If either player has won, set the draw flag to False and break the loop
     if player_wins['X'] or player_wins['O']:
         is_draw_game = False
         break
@@ -111,6 +133,7 @@ while free_fields_count > 0 and (not player_wins['O']) and (not player_wins['X']
 if is_draw_game:
     print('is a draw')    
 else:
+    # If the computer has won
     if player_wins['X']:
         print('You Lose')
     else:
