@@ -35,12 +35,14 @@ def enter_move(board):
             is_valid_move = False
             continue
             
-        if not move >= 1 and move <= 9:
+        if not (1 <= move <= 9):
             print('Invalid input')
         else:
+            # Calculate the row index from the move
             move_row = (move - 1) // 3
+            # Calculate the column index from the move
             move_column = (move - 1) % 3
-            
+                 
             if board[move_row][move_column] not in ['X','O']:
                 is_valid_move = True
                 board[move_row][move_column] = 'O'
@@ -52,10 +54,10 @@ def enter_move(board):
                     
 def make_list_of_free_fields(board):
     free_list = []
-    for row in range(len(board)):
-        for col in range(len(board[row])):
-            if board[row][col] not in ['X', 'O']:
-                free_list.append((row, col))
+    for row_idx, row in enumerate(board):
+        for col_idx, cell in enumerate(row):
+            if cell not in ['X', 'O']:
+                free_list.append((row_idx, col_idx))
     return free_list
 
 def victory_for(board, sign):
@@ -83,26 +85,36 @@ def victory_for(board, sign):
     return check_rows(board, sign) or check_columns(board, sign) or check_diagonals(board, sign)
         
 def draw_move(board):
+    # Place 'X' in the center cell if it's not already occupied
     if board[1][1] != 'X':
         board[1][1] = 'X'
     else:
         is_valid_move = False
+        # Loop until a valid move is found
         while not is_valid_move:
+            # Generate a random move between 0 and 8
             move = randrange(9)
+            
+            # Calculate the row and column indices from the move
             move_row = move // 3
             move_column = move % 3
             
-            is_valid_move = True if board[move_row][move_column] not in ['X','O'] else False 
-            
-            if(is_valid_move):
+            # Check if the selected cell is free (not 'X' or 'O')
+            if board[move_row][move_column] not in ['X', 'O']:
+                is_valid_move = True
+                # Place 'X' in the selected cell
                 board[move_row][move_column] = 'X'
     
+    # Display the updated board
     display_board(board)
     
-    
+# Initialize the board as a 3x3 grid with numbers 1 to 9    
 board = [[str(row * 3 + col + 1) for col in range(3)] for row in range(3)]
 
-is_draw_game = True
+# Flag to check if the game is a draw
+is_draw = True
+
+# Dictionary to track if a player has won
 player_wins = {'X': False, 'O': False}
 
 free_fields_count = len(make_list_of_free_fields(board))
@@ -127,10 +139,10 @@ while free_fields_count > 0 and (not player_wins['O']) and (not player_wins['X']
 
     # If either player has won, set the draw flag to False and break the loop
     if player_wins['X'] or player_wins['O']:
-        is_draw_game = False
+        is_draw = False
         break
         
-if is_draw_game:
+if is_draw:
     print('is a draw')    
 else:
     # If the computer has won
