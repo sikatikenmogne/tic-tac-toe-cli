@@ -50,7 +50,6 @@ def enter_move(board):
                 print('Invalid move: Already used') 
                 is_valid_move = False
                 continue
-    display_board(board)
                     
 def make_list_of_free_fields(board):
     free_list = []
@@ -105,11 +104,13 @@ def draw_move(board):
                 # Place 'X' in the selected cell
                 board[move_row][move_column] = 'X'
     
-    # Display the updated board
-    display_board(board)
+
     
 # Initialize the board as a 3x3 grid with numbers 1 to 9    
 board = [[str(row * 3 + col + 1) for col in range(3)] for row in range(3)]
+
+# Display the initial board
+display_board(board)
 
 # Flag to check if the game is a draw
 is_draw = True
@@ -123,6 +124,10 @@ free_fields_count = len(make_list_of_free_fields(board))
 while free_fields_count > 0 and (not player_wins['O']) and (not player_wins['X']):        
     # Computer makes a move
     draw_move(board)
+
+    # Display the updated board
+    display_board(board)
+
     # Check if the computer has won
     player_wins['X'] = victory_for(board, 'X')
 
@@ -132,6 +137,10 @@ while free_fields_count > 0 and (not player_wins['O']) and (not player_wins['X']
     if free_fields_count > 0 and (not player_wins['X']):
         # Player makes a move
         enter_move(board)
+
+        # Display the updated board
+        display_board(board)
+
         # Check if the player has won
         player_wins['O'] = victory_for(board, 'O')
 
