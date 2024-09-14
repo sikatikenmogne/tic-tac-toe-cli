@@ -1,0 +1,64 @@
+@startuml "Tic Tac Toe Sequence Diagram"
+
+actor User
+participant Computer
+participant Game
+
+== Initialization ==
+
+User -> Game: Start Game
+activate Game
+Game -> Game: Initialize Board
+Game --> User -- : display_board(board)
+
+deactivate Game
+
+== Game Start ==
+
+
+loop Continue while there are free fields and no player has won
+    Computer -> Game: draw_move(board)
+    activate Game
+    Game --> User -- : display_board(board)
+    deactivate Game
+    Game -> Game: victory_for(board, 'X')
+    note right: Check if computer \n as won
+    alt There are still free fields and the computer hasn't won
+        ' Game ->> User: Prompt for Move
+        User -> Game: enter_move(board)
+        activate Game
+        Game --> User -- : display_board(board)
+        deactivate Game
+        Game -> Game: victory_for(board, 'O')
+        note right: Check if user \n as won
+        
+        alt User Wins
+            Game -> Game: Update results table to \n set user as winner
+
+        else user not Wins
+            Game -> Game: check_for_a_tie(board)
+            alt It's a Tie
+            note right: Check if There is no \n free fields avialable \n and no one as won
+
+                Game -> Game: Update results table to \n set a tie game
+            end
+        end
+
+    else Computer Wins
+        Game -> Game: Update results table to \n set computer as winner
+    end
+end
+
+== Game Over ==
+
+alt Game Ends in a Tie
+    Game -> User: print('is a draw')
+else Game Ends with a Winner
+    alt User Wins
+        Game -> User: print('You won!')
+    else User Lose
+        Game -> User: print('You Lose')
+    end
+end
+
+@enduml

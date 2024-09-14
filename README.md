@@ -3,7 +3,7 @@
 </div>
 
 <h1 align="center">
-    Tic-Tac-Toe
+    Tic-Tac-Toe CLI
 </h1>
 
 <div align="center">
@@ -17,11 +17,11 @@ Classic user vs computer Tic-Tac-Toe game on CLI
 
 </div>
 
-## Getting Started
+## Overview
 
 This project is a simple implementation of the classic Tic-Tac-Toe game where the user plays against the computer. The computer makes random moves, and the game continues until there is a winner or a draw.
 
-## Game Rules
+### Game Rules
 
 - The computer plays using 'X's.
 - The user plays using 'O's.
@@ -30,9 +30,45 @@ This project is a simple implementation of the classic Tic-Tac-Toe game where th
 - The user inputs their move by entering the number of the square they choose.
 - The game ends when there is a winner or a draw.
 
-## Example Session
+## How to Run
+
+1. Ensure you have Python 3.x or higher installed on your machine.
+2. Clone this repository.
+3. Navigate to the project directory.
+4. Run the game using the following command:
+
+    ```sh
+    python main.py
+    ```
+
+## How It Works
+
+1. **Initialization**:
+   - The board is initialized as a 3x3 grid with numbers 1 to 9.
+   - Flags and dictionaries are set up to track the game state, including whether the game is a draw and whether a player has won.
+
+2. **Main Game Loop**:
+   - The game continues while there are free fields and no player has won.
+   - The computer makes a move by placing 'X' on the board.
+   - The game checks if the computer has won.
+   - If there are still free fields and the computer hasn't won, the player makes a move by placing 'O' on the board.
+   - The game checks if the player has won.
+   - If either player has won, the game ends and the result is displayed.
+
+3. **Functions**:
+   - `display_board(board)`: Displays the current state of the board.
+   - `enter_move(board)`: Allows the player to enter their move and updates the board accordingly.
+   - `make_list_of_free_fields(board)`: Returns a list of coordinates of the free cells on the board.
+   - `victory_for(board, sign)`: Checks if the specified player has won the game.
+   - `draw_move(board)`: Makes a move for the computer and updates the board accordingly.
+
+### Example Session
+
+<details>
+<summary> Clik to expand </summary>
 
 ```md
+...
 +-------+-------+-------+
 |       |       |       |
 |   1   |   2   |   3   |
@@ -93,29 +129,33 @@ Enter your move: 7
 You won!
 ```
 
-## How to Run
+</details>
 
-1. Ensure you have Python installed on your machine.
-2. Clone this repository.
-3. Navigate to the project directory.
-4. Run the game using the following command:
-    ```sh
-    python main.py
-    ```
+### UML Sequence Diagram
+
+Below is a UML sequence diagram that illustrates the interaction between the main components of the game.
+
+<details>
+
+<summary>
+    Click to view diagram
+</summary>
+
+<div style="text-align: center;">
+
+![sequence-diagram](/assets/docs/sequence-diagram/Tic%20Tac%20Toe%20Sequence%20Diagram.png)
+
+</div>
+
+</details>
+
 
 ## Project Structure
 
-- [`assesment.md`](/assesment.md): Contains the project description and instructions.
 - [`main.py`](/main.py): The main Python script that implements the game logic.
 - [`README.md`](/README.md): This file, providing an overview of the project.
-
-## Functions
-
-- `display_board`: Displays the current state of the board.
-- `enter_move`: Handles the user's move.
-- `make_list_of_free_fields`: Generates a list of free fields on the board.
-- `victory_for`: Checks if there is a winner.
-- `draw_move`: Handles the computer's move.
+- [`assesment.md`](/assesment.md): Contains the project description and instructions.
 
 ## License
+
 This project is licensed under the [MIT License](LICENSE).
