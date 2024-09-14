@@ -141,7 +141,7 @@ Below is a UML sequence diagram that illustrates the interaction between the mai
     Click to view diagram
 </summary>
 
-<div style="text-align: center;">
+<div align="center" style="text-align: center;">
 
 ![sequence-diagram](/assets/docs/sequence-diagram/Tic%20Tac%20Toe%20Sequence%20Diagram.png)
 
